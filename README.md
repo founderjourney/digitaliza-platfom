@@ -22,7 +22,7 @@ Plataforma de gestión de menús digitales optimizada para móviles. Incluye pla
 - **Framework**: Next.js 14 (React)
 - **Lenguaje**: TypeScript
 - **Estilos**: Tailwind CSS
-- **Base de Datos**: SQLite sobre **Turso** (Base de datos en el borde, rápida y escalable)
+- **Base de Datos**: PostgreSQL (Neon Tech)
 - **ORM**: Prisma
 - **Despliegue**: Vercel
 
@@ -32,26 +32,39 @@ Plataforma de gestión de menús digitales optimizada para móviles. Incluye pla
 
 ### Producción (Vercel)
 1.  **Click en el botón "Deploy with Vercel"** de arriba.
-2.  **Configura las Variables de Entorno** en el panel de Vercel. Necesitarás las credenciales de tu base de datos Turso.
+2.  **Configura las Variables de Entorno** en el panel de Vercel. Necesitarás las credenciales de tu base de datos de Neon Tech.
     ```env
-    DATABASE_URL="libsql://your-database.turso.io"
-    DATABASE_AUTH_TOKEN="your-turso-auth-token"
+    DATABASE_URL="postgresql://user:password@host:port/dbname?sslmode=require"
     NEXTAUTH_SECRET="your-super-secret-production-key"
     NEXTAUTH_URL="https://your-domain.vercel.app"
     ```
 
 ### Desarrollo Local
-```bash
-# 1. Instalar dependencias
-npm install
 
-# 2. Configurar la base de datos local
-npm run db:generate
-npm run db:push
+1.  **Instalar dependencias**
+    ```bash
+    npm install
+    ```
 
-# 3. Iniciar el servidor de desarrollo
-npm run dev
-```
+2.  **Configurar la base de datos local**
+    - Crea un archivo `.env.local` en la raíz del proyecto.
+    - Añade tu connection string de Neon Tech al archivo:
+      ```env
+      DATABASE_URL="postgresql://user:password@host:port/dbname?sslmode=require"
+      ```
+    - Genera el cliente de Prisma:
+      ```bash
+      npx prisma generate
+      ```
+    - Sincroniza tu base de datos:
+      ```bash
+      npx prisma db push
+      ```
+
+3.  **Iniciar el servidor de desarrollo**
+    ```bash
+    npm run dev
+    ```
 La aplicación estará disponible en `http://localhost:3000`.
 
 ---
