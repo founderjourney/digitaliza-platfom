@@ -29,6 +29,8 @@ export interface MenuItem {
   imageUrl?: string | undefined
   order: number
   restaurantId: string
+  duration?: string;
+  size?: string;
   createdAt: Date
   updatedAt: Date
 }
