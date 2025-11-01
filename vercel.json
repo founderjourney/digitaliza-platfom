@@ -1,0 +1,29 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "outputDirectory": ".next",
+  "functions": {
+    "src/app/api/**/*.ts": {
+      "maxDuration": 10
+    }
+  },
+  "crons": [],
+  "env": {
+    "NEXT_PUBLIC_APP_NAME": "LinkAngri",
+    "NEXT_PUBLIC_SITE_URL": "https://linkangri.vercel.app"
+  },
+  "build": {
+    "env": {
+      "NEXT_PUBLIC_APP_NAME": "LinkAngri"
+    }
+  },
+  "regions": ["iad1"],
+  "git": {
+    "deploymentEnabled": {
+      "main": true,
+      "preview": true
+    }
+  }
+}

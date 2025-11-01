@@ -1,0 +1,139 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Mobile-first CSS optimizations */
+@layer base {
+  html {
+    /* Smooth scrolling for mobile */
+    scroll-behavior: smooth;
+    /* Prevent horizontal scroll on mobile */
+    overflow-x: hidden;
+  }
+
+  body {
+    /* Prevent pull-to-refresh on mobile */
+    overscroll-behavior-y: none;
+    /* Optimize touch scrolling */
+    -webkit-overflow-scrolling: touch;
+    /* Prevent zoom on input focus */
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* Improve touch targets */
+  button, a, input, select, textarea {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Optimize focus for mobile */
+  input:focus,
+  textarea:focus,
+  select:focus {
+    outline: 2px solid #C41E3A;
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /* Reusable mobile-optimized components */
+  .btn-primary {
+    @apply bg-japanese-primary text-white px-6 py-3 rounded-lg font-medium;
+    @apply hover:bg-opacity-90 focus:ring-2 focus:ring-japanese-primary focus:ring-offset-2;
+    @apply transition-all duration-200 ease-in-out;
+    @apply min-h-touch flex items-center justify-center;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-japanese-primary border-2 border-japanese-primary px-6 py-3 rounded-lg font-medium;
+    @apply hover:bg-japanese-primary hover:text-white focus:ring-2 focus:ring-japanese-primary focus:ring-offset-2;
+    @apply transition-all duration-200 ease-in-out;
+    @apply min-h-touch flex items-center justify-center;
+  }
+
+  .card {
+    @apply bg-white rounded-xl shadow-sm border border-gray-100 p-6;
+    @apply hover:shadow-md transition-shadow duration-200;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 border border-gray-300 rounded-lg;
+    @apply focus:ring-2 focus:ring-japanese-primary focus:border-transparent;
+    @apply transition-all duration-200 ease-in-out;
+    @apply min-h-touch;
+  }
+
+  /* Template-specific styles */
+  .template-japanese {
+    @apply bg-gradient-to-br from-japanese-bg to-japanese-accent/10;
+  }
+
+  .template-italian {
+    @apply bg-gradient-to-br from-italian-bg to-italian-accent/10;
+  }
+
+  .template-mexican {
+    @apply bg-gradient-to-br from-mexican-bg to-mexican-accent/10;
+  }
+
+  .template-coffee {
+    @apply bg-gradient-to-br from-coffee-bg to-coffee-accent/10;
+  }
+}
+
+@layer utilities {
+  /* Performance-optimized utilities */
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  /* Safe area utilities for mobile */
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* Touch-friendly utilities */
+  .touch-manipulation {
+    touch-action: manipulation;
+  }
+
+  .no-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+}
+
+/* Loading states for better perceived performance */
+.skeleton {
+  @apply animate-pulse bg-gray-200 rounded;
+}
+
+.skeleton-text {
+  @apply skeleton h-4 w-full mb-2;
+}
+
+.skeleton-button {
+  @apply skeleton h-12 w-32;
+}
+
+/* Optimize for mobile devices */
+@media (max-width: 768px) {
+  /* Reduce motion for better performance on mobile */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}

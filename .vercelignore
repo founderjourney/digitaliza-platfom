@@ -1,0 +1,50 @@
+# Files to ignore during Vercel deployment
+
+# Development files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local environment files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Development database
+dev.db
+dev.db-journal
+
+# IDE files
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# Documentation (to reduce bundle size)
+docs/
+*.md
+DEPLOYMENT.md
+README.md
+
+# Test files
+**/*.test.*
+**/*.spec.*
+__tests__/
+jest.config.*
+
+# Lighthouse CI
+.lighthouseci/
+
+# Development scripts
+scripts/dev-*
