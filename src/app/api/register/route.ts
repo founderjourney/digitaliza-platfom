@@ -25,6 +25,50 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // --- Start of Trello Integration ---
+    try {
+      const trelloApiKey = process.env.TRELLO_API_KEY;
+      const trelloApiToken = process.env.TRELLO_API_TOKEN;
+      const trelloListId = process.env.TRELLO_LIST_ID;
+
+      const cardName = `Nuevo Registro: ${name}`;
+      const cardDesc = `
+**Slug:** ${slug}
+---
+**Contacto:**
+- **Teléfono:** ${phone}
+- **WhatsApp:** ${whatsapp}
+
+**Información del Negocio:**
+- **Dirección:** ${address}
+- **Horario:** ${hours}
+- **Tipo de Cocina:** ${cuisineType}
+- **Descripción:** ${description}
+      `;
+
+      const trelloUrl = `https://api.trello.com/1/cards?idList=${trelloListId}&key=${trelloApiKey}&token=${trelloApiToken}&name=${encodeURIComponent(cardName)}&desc=${encodeURIComponent(cardDesc)}`;
+
+      fetch(trelloUrl, { method: 'POST' })
+        .then(response => {
+          if (!response.ok) {
+            console.error('Trello API response not OK:', response.statusText);
+            response.json().then(err => console.error('Trello API error details:', err));
+          } else {
+            console.log('Card created successfully in Trello.');
+          }
+        })
+        .catch(error => {
+          console.error('Failed to send data to Trello:', error);
+        });
+
+    } catch (trelloError) {
+      console.error('An error occurred in the Trello integration block:', trelloError);
+    }
+    // --- End of Trello Integration ---
+
+    // TODO: Re-enable database integration once the underlying issue is fixed.
+    // The following block is temporarily disabled to prevent the 'Error: undefined' issue.
+    /*
     // Check if slug already exists
     const existingRestaurant = await db.restaurant.findBySlug(slug)
     if (existingRestaurant) {
@@ -54,19 +98,15 @@ export async function POST(request: NextRequest) {
     for (const item of sampleMenuItems) {
       await db.menu.create(item)
     }
+    */
 
+    // Return success and the redirect URL for WhatsApp
     return NextResponse.json(
       {
         success: true,
-        restaurant: {
-          id: restaurant.id,
-          slug: restaurant.slug,
-          name: restaurant.name,
-          theme: restaurant.theme
-        },
-        message: 'Restaurant created successfully'
+        redirectUrl: 'https://chat.whatsapp.com/J6zY1ez8i6GLRl6bZursF7?mode=wwt'
       },
-      { status: 201 }
+      { status: 200 }
     )
 
   } catch (error) {

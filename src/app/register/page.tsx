@@ -61,11 +61,17 @@ export default function RegisterPage() {
       })
 
       if (response.ok) {
-        setSuccess(true)
-        setStep(4)
+        const data = await response.json();
+        if (data.redirectUrl) {
+          window.location.href = data.redirectUrl;
+        } else {
+          // Fallback if redirectUrl is not provided
+          setSuccess(true);
+          setStep(4);
+        }
       } else {
         const error = await response.json()
-        alert(`Error: ${error.message}`)
+        alert(`Error: ${error.error || 'Ocurrió un problema con el registro.'}`)
       }
     } catch (error) {
       console.error('Registration failed:', error)
@@ -328,7 +334,7 @@ export default function RegisterPage() {
                   disabled={isLoading}
                   className="px-8 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
                 >
-                  {isLoading ? 'Creando...' : '🚀 Crear Restaurante'}
+                  {isLoading ? 'Enviando...' : '🚀 Enviar Datos'}
                 </button>
               </div>
             </motion.div>
