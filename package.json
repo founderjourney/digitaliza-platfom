@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "test": "node test-build.js",
-    "seed": "ts-node --project prisma/tsconfig.json prisma/seed.ts"
+    "seed": "ts-node --project prisma/tsconfig.json prisma/seed.ts",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "5.5.2",
