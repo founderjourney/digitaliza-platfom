@@ -5,12 +5,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma db push --accept-data-loss && next build",
+    "build": "prisma generate && prisma db push --accept-data-loss && next build",
     "start": "next start",
     "lint": "next lint",
     "test": "node test-build.js",
-    "seed": "ts-node --project prisma/tsconfig.json prisma/seed.ts",
-    "postinstall": "prisma generate"
+    "seed": "ts-node --project prisma/tsconfig.json prisma/seed.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.0",
