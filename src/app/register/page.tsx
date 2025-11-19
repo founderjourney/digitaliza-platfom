@@ -48,34 +48,43 @@ export default function RegisterPage() {
     setIsLoading(true)
 
     try {
-      const response = await fetch('/api/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          ...registrationData,
-          slug,
-          password: 'admin123' // Default password - should be changed after first login
-        })
-      })
+      // Crear mensaje para WhatsApp
+      const message = `🚀 *NUEVO REGISTRO - DIGITALIZA*
 
-      if (response.ok) {
-        const data = await response.json();
-        if (data.redirectUrl) {
-          window.location.href = data.redirectUrl;
-        } else {
-          // Fallback if redirectUrl is not provided
-          setSuccess(true);
-          setStep(4);
-        }
-      } else {
-        const error = await response.json()
-        alert(`Error: ${error.error || 'Ocurrió un problema con el registro.'}`)
-      }
+📋 *Datos del Restaurante:*
+• Nombre: ${registrationData.name}
+• URL Sugerida: digitaliza.com/demo/${slug}
+• Template: ${cuisineOptions.find(opt => opt.value === registrationData.cuisineType)?.label}
+
+📞 *Contacto:*
+• Teléfono: ${registrationData.phone}
+• WhatsApp: ${registrationData.whatsapp}
+
+📍 *Ubicación:*
+• Dirección: ${registrationData.address}
+• Horarios: ${registrationData.hours}
+
+📝 *Descripción:*
+${registrationData.description || 'Sin descripción'}
+
+---
+Solicitud enviada desde: digitaliza.com/register`
+
+      // Enviar a WhatsApp usando wa.me
+      const whatsappNumber = '573146414247' // Tu número sin espacios ni símbolos
+      const encodedMessage = encodeURIComponent(message)
+      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`
+
+      // Abrir WhatsApp
+      window.open(whatsappUrl, '_blank')
+
+      // Mostrar mensaje de éxito
+      setSuccess(true)
+      setStep(4)
+
     } catch (error) {
-      console.error('Registration failed:', error)
-      alert('Error en el registro. Inténtalo de nuevo.')
+      console.error('Error:', error)
+      alert('Error al procesar el registro. Inténtalo de nuevo.')
     } finally {
       setIsLoading(false)
     }
@@ -312,13 +321,13 @@ export default function RegisterPage() {
                 </div>
               </div>
 
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-                <h4 className="font-semibold text-blue-900 mb-2">🔐 Acceso Administrativo:</h4>
-                <p className="text-sm text-blue-800">
-                  Password inicial: <code className="bg-blue-100 px-2 py-1 rounded">admin123</code>
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+                <h4 className="font-semibold text-green-900 mb-2">📲 Próximos Pasos:</h4>
+                <p className="text-sm text-green-800">
+                  Te enviaremos tus <strong>datos de acceso</strong> por WhatsApp en las próximas <strong>24 horas</strong>.
                 </p>
-                <p className="text-xs text-blue-600 mt-1">
-                  Cámbiala después del primer acceso en {slug}/admin
+                <p className="text-xs text-green-700 mt-2">
+                  💡 Mantente pendiente de nuestro mensaje con las credenciales para acceder a tu panel administrativo.
                 </p>
               </div>
 
@@ -347,32 +356,36 @@ export default function RegisterPage() {
               animate={{ opacity: 1, scale: 1 }}
               className="bg-white rounded-xl shadow-lg p-8 text-center"
             >
-              <div className="text-6xl mb-6">🎉</div>
+              <div className="text-6xl mb-6">✅</div>
               <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                ¡Restaurante Creado!
+                ¡Registro Enviado!
               </h2>
-              <p className="text-gray-600 mb-8">
-                Tu menú digital está listo. Empieza a agregar platos y comparte el QR con tus clientes.
+              <p className="text-gray-600 mb-4">
+                Hemos recibido tu solicitud para crear tu menú digital.
               </p>
+
+              <div className="bg-green-50 border-2 border-green-200 rounded-lg p-6 mb-8">
+                <h3 className="font-bold text-green-900 mb-3 text-xl">📲 ¿Qué sigue?</h3>
+                <p className="text-green-800 mb-2">
+                  Te enviaremos tus <strong>datos de acceso</strong> por WhatsApp al número <strong>{registrationData.whatsapp}</strong> en las próximas <strong>24 horas</strong>.
+                </p>
+                <p className="text-sm text-green-700">
+                  💡 Recibirás las credenciales para acceder a tu panel administrativo y empezar a gestionar tu menú digital.
+                </p>
+              </div>
 
               <div className="space-y-4">
                 <a
-                  href={`/demo/${slug}`}
+                  href="/"
                   className="block w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                 >
-                  👀 Ver mi Menú Digital
+                  🏠 Volver al Inicio
                 </a>
                 <a
-                  href={`/${slug}/admin`}
-                  className="block w-full px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
-                >
-                  ⚙️ Ir al Panel Admin
-                </a>
-                <a
-                  href="/"
+                  href="/demo/sakura-sushi"
                   className="block w-full px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors"
                 >
-                  🏠 Volver al Inicio
+                  👀 Ver Demo de Ejemplo
                 </a>
               </div>
             </motion.div>
