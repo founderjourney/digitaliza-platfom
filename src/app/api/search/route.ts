@@ -1,8 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
+// import { prisma } from '@/lib/db'
 
 export async function GET(request: NextRequest) {
   try {
+    // TODO: Re-enable when Prisma server is back up
+    // Temporarily disabled due to Prisma binaries server being down
+    return NextResponse.json({ restaurants: [] })
+
+    /* Original code - re-enable when Prisma works
     const { searchParams } = new URL(request.url)
     const query = searchParams.get('q')
 
@@ -38,6 +43,7 @@ export async function GET(request: NextRequest) {
     })
 
     return NextResponse.json({ restaurants })
+    */
 
   } catch (error) {
     console.error('Search error:', error)
