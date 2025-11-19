@@ -147,7 +147,11 @@ digitaliza/
 │   └── types/                    # TypeScript types
 ├── public/
 │   └── images/                   # Assets estáticos
-├── PROCESO-INTERNO.md            # 📋 Proceso manual del equipo
+├── _documentacion/               # 📚 Documentación del proyecto
+│   ├── INDEX.md                  # Índice de documentación
+│   ├── PROCESO-INTERNO.md        # Proceso manual del equipo
+│   ├── DEPLOYMENT.md             # Guía de deployment
+│   └── FINAL-DELIVERY-REPORT.md  # Reporte de entrega
 └── README.md                     # Este archivo
 ```
 
@@ -263,7 +267,10 @@ Este es un proyecto privado, pero aceptamos sugerencias:
 
 - **WhatsApp:** +57 314 6414247
 - **Email:** soporte@digitaliza.com
-- **Documentación:** [Ver docs](./PROCESO-INTERNO.md) *(equipo interno)*
+- **Documentación:** [Ver documentación completa](./_documentacion/INDEX.md)
+  - [Proceso Interno](./_documentacion/PROCESO-INTERNO.md) *(equipo interno)*
+  - [Guía de Deployment](./_documentacion/DEPLOYMENT.md)
+  - [Reporte de Entrega](./_documentacion/FINAL-DELIVERY-REPORT.md)
 
 ---
 
